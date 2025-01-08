@@ -6,6 +6,9 @@ namespace App\DTOs;
 
 readonly class Webhook
 {
+    /**
+     * @param array<string, mixed> $payload
+     */
     public function __construct(
         public string $platform,
         public array $payload
@@ -16,6 +19,9 @@ readonly class Webhook
         return $this->platform;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getPayload(): array
     {
         return $this->payload;
