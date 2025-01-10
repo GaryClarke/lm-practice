@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Handlers;
+namespace App\Contracts;
 
 use App\DTOs\Webhook;
 
-interface WebhookHandlerInterface
+interface WebhookHandler
 {
+    public const string TAG = 'webhook-handlers';
+
     /**
      * Determines if this handler supports the given webhook.
      */
