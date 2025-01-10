@@ -11,7 +11,7 @@ interface AudienceGridClientInterface
     /**
      * Sends data to AudienceGrid.
      *
-     * @param array $data The data payload to send.
+     * @param array<string, mixed> $data The data payload to send.
      * @return Response The HTTP response from AudienceGrid.
      */
     public function post(array $data): Response;
