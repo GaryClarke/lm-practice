@@ -23,11 +23,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->tag([
             GoogleWebhookHandler::class,
             AppleWebhookHandler::class
-        ], WebhookHandler::TAG);
+        ], WebhookHandler::class);
 
         // Register HandlerDelegator with tagged services
         $this->app->bind(HandlerDelegator::class, function (Application $app) {
-            return new HandlerDelegator($app->tagged(WebhookHandler::TAG));
+            return new HandlerDelegator($app->tagged(WebhookHandler::class));
         });
     }
 

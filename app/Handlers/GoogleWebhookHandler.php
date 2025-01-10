@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handlers;
 
-use app\Contracts\WebhookHandler;
+use App\Contracts\WebhookHandler;
 use App\DTOs\Webhook;
 
 class GoogleWebhookHandler implements WebhookHandler
