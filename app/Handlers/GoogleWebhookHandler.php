@@ -24,7 +24,6 @@ class GoogleWebhookHandler implements WebhookHandler
      */
     public function handle(Webhook $webhook): void
     {
-        dd($webhook);
         // STEP 1: Use a factory class to extract relevant data into Google\SubscriptionNotification
 
         // STEP 2: Loop over forwarders
