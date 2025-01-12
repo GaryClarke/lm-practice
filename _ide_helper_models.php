@@ -16,6 +16,35 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property int $subscription_provider_id
+ * @property string $name
+ * @property \App\DTOs\Google\SubscriptionEventCategory $category
+ * @property int $notification_type
+ * @property bool $in_trial
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\SubscriptionProvider|null $provider
+ * @method static \Database\Factories\SubscriptionEventFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubscriptionEvent newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubscriptionEvent newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubscriptionEvent query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubscriptionEvent whereCategory($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubscriptionEvent whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubscriptionEvent whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubscriptionEvent whereInTrial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubscriptionEvent whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubscriptionEvent whereNotificationType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubscriptionEvent whereSubscriptionProviderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SubscriptionEvent whereUpdatedAt($value)
+ */
+	class SubscriptionEvent extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
