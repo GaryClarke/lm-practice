@@ -5,11 +5,17 @@ declare(strict_types=1);
 namespace App\Handlers;
 
 use App\Contracts\WebhookHandler;
+use App\DTOs\Google\SubscriptionFactory;
 use App\DTOs\Webhook;
 
 class GoogleWebhookHandler implements WebhookHandler
 {
     private const string SUPPORTED_PLATFORM = 'google';
+
+    public function __construct(
+        private SubscriptionFactory $subscriptionFactory
+    ) {
+    }
 
     /**
      * Determines if this handler supports the given webhook.
@@ -25,6 +31,9 @@ class GoogleWebhookHandler implements WebhookHandler
     public function handle(Webhook $webhook): void
     {
         // STEP 1: Use a factory class to extract relevant data into Google\SubscriptionNotification
+        $subscription = $this->subscriptionFactory->create($webhook);
+
+        dd($subscription);
 
         // STEP 2: Loop over forwarders
             // Check if forwarder supports the notification

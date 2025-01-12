@@ -10,8 +10,6 @@ use function Pest\Laravel\postJson;
 it('processes subscription purchase notifications', function () {
     $subEvent = SubscriptionEvent::all();
 
-    dd($subEvent);
-
     $payload = getPayload();
 
     Http::fake();
