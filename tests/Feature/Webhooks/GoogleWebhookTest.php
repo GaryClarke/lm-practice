@@ -2,11 +2,16 @@
 
 declare(strict_types=1);
 
+use App\Models\SubscriptionEvent;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\Request;
 use function Pest\Laravel\postJson;
 
 it('processes subscription purchase notifications', function () {
+    $subEvent = SubscriptionEvent::all();
+
+    dd($subEvent);
+
     $payload = getPayload();
 
     Http::fake();
