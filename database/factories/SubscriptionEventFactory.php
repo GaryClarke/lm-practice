@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\SubscriptionProvider;
+use App\Models\SubscriptionEvent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<SubscriptionProvider>
+ * @extends Factory<SubscriptionEvent>
  */
-class SubscriptionProviderFactory extends Factory
+class SubscriptionEventFactory extends Factory
 {
     /**
      * Define the model's default state.
