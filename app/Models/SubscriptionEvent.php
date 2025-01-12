@@ -29,7 +29,9 @@ class SubscriptionEvent extends Model
     ];
 
     /**
-     * Relationship: SubscriptionEvent belongs to a SubscriptionProvider.
+     * Get the subscription provider that owns the event.
+     *
+     * @phpstan-ignore missingType.generics
      */
     public function provider(): BelongsTo
     {
