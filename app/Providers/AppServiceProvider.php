@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\SubscriptionForwarder;
 use App\Contracts\WebhookHandler;
+use App\DTOs\Google\SubscriptionFactory;
+use App\Forwarders\Google\SubscriptionStartForwarder;
 use App\Handlers\AppleWebhookHandler;
 use App\Handlers\GoogleWebhookHandler;
 use App\Handlers\HandlerDelegator;
@@ -16,9 +19,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Register and tag webhook handlers
-        $this->app->bind(GoogleWebhookHandler::class);
-        $this->app->bind(AppleWebhookHandler::class);
+        $this->app->tag([
+            SubscriptionStartForwarder::class
+        ], SubscriptionForwarder::class);
+
+        // Inject tagged forwarders into GoogleWebhookHandler
+        $this->app->bind(GoogleWebhookHandler::class, function (Application $app) {
+            return new GoogleWebhookHandler(
+                $app->make(SubscriptionFactory::class),
+                $app->tagged(SubscriptionForwarder::class)
+            );
+        });
 
         $this->app->tag([
             GoogleWebhookHandler::class,
