@@ -92,5 +92,5 @@ it('throws WebhookException if subscription event is not found', function () {
     ]);
 
     expect(fn () => $factory->create($webhook))
-        ->toThrow(WebhookException::class);
+        ->toThrow(WebhookException::class, 'Unable to create Google Subscription');
 });
