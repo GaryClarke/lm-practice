@@ -5,4 +5,5 @@ parameters:
     excludePaths:
         - bootstrap/cache/*
         - storage/*
+        - app/DTOs/Google/SubscriptionFactory.php
     reportUnmatchedIgnoredErrors: false

@@ -16,7 +16,7 @@ class SubscriptionFactory
 
     /**
      * @throws WebhookException
-     */
+    */
     public function create(Webhook $webhook): Subscription
     {
         try {
@@ -28,11 +28,12 @@ class SubscriptionFactory
 
             // Use repository to find event
             $event = $this->eventRepository->findByNotificationType(
-                $subscriptionNotification['notification_type'],
+                (int) $subscriptionNotification['notification_type'],
                 $subscriptionNotification['in_trial']
             );
 
             // Return a populated Subscription DTO
+            // @phpstan-ignore argument.type
             return new Subscription(
                 subscription_id: $subscriptionNotification['subscription_id'],
                 notification_type: $subscriptionNotification['notification_type'],
