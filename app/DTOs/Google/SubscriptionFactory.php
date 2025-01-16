@@ -35,19 +35,19 @@ class SubscriptionFactory
             // Return a populated Subscription DTO
             // @phpstan-ignore argument.type
             return new Subscription(
-                subscription_id: $subscriptionNotification['subscription_id'],
-                notification_type: $subscriptionNotification['notification_type'],
-                in_trial: $subscriptionNotification['in_trial'],
-                event_time: CarbonImmutable::createFromTimestampMs($data['data']['event_time_millis']),
+                subscriptionId: $subscriptionNotification['subscription_id'],
+                notificationType: $subscriptionNotification['notification_type'],
+                inTrial: $subscriptionNotification['in_trial'],
+                eventTime: CarbonImmutable::createFromTimestampMs($data['data']['event_time_millis']),
                 event: $event->name,
                 category: $event->category->value,
-                product_id: $developerNotification['product_id'],
-                order_id: $developerNotification['order_id'],
-                user_id: $developerNotification['user_account_id'],
+                productId: $developerNotification['product_id'],
+                orderId: $developerNotification['order_id'],
+                userId: $developerNotification['user_account_id'],
                 email: $developerNotification['email'],
-                auto_renewing: $developerNotification['auto_renewing'],
-                purchase_date: CarbonImmutable::createFromTimestampMs($developerNotification['purchase_time_millis']),
-                expiry_date: CarbonImmutable::createFromTimestampMs($developerNotification['expiry_time_millis']),
+                autoRenewing: $developerNotification['auto_renewing'],
+                purchaseDate: CarbonImmutable::createFromTimestampMs($developerNotification['purchase_time_millis']),
+                expiryDate: CarbonImmutable::createFromTimestampMs($developerNotification['expiry_time_millis']),
                 currency: $developerNotification['price_currency_code'],
                 region: $developerNotification['region_code']
             );
