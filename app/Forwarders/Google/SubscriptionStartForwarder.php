@@ -7,13 +7,15 @@ namespace App\Forwarders\Google;
 use App\Contracts\SubscriptionForwarder;
 use App\DTOs\Google\Subscription as GoogleSubscription;
 use App\DTOs\Google\SubscriptionEventCategory;
-use \App\DTOs\AudienceGrid\Subscription as AudienceGridSubscription;
 use App\Mappers\SubscriptionMapper;
+use App\Validators\SubscriptionValidator;
 
 class SubscriptionStartForwarder implements SubscriptionForwarder
 {
-    public function __construct(private SubscriptionMapper $subscriptionMapper)
-    {
+    public function __construct(
+        private SubscriptionMapper $mapper,
+        private SubscriptionValidator $validator
+    ) {
     }
 
     public function supports(GoogleSubscription $googleSubscription): bool
@@ -24,6 +26,11 @@ class SubscriptionStartForwarder implements SubscriptionForwarder
     public function forward(GoogleSubscription $googleSubscription): void
     {
         // Map to AudienceGrid
-        $audienceGridSubscription = $this->subscriptionMapper->mapToAudienceGrid($googleSubscription);
+        $audienceGridSubscription = $this->mapper->mapToAudienceGrid($googleSubscription);
+
+        // Validate the $audienceGridSubscription
+        $this->validator->validate($audienceGridSubscription);
+
+        dd($audienceGridSubscription);
     }
 }

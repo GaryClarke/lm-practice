@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace App\DTOs\AudienceGrid;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Contracts\Support\Arrayable;
 
-class Subscription
+/**
+ * @implements Arrayable<string, mixed>
+ */
+class Subscription implements Arrayable
 {
     private string $event;
     private string $subscriptionId;
@@ -20,6 +24,29 @@ class Subscription
     private string $userId;
     private string $email;
     private string $region;
+
+    /**
+     * Returns validation rules for the subscription.
+     *
+     * @return array<string, string>
+     */
+    public static function rules(): array
+    {
+        return [
+            'event' => 'required|string',
+            'properties.subscription_id' => 'required|string',
+            'properties.platform' => 'required|string',
+            'properties.auto_renew_status' => 'required|boolean',
+            'properties.currency' => 'required|string|size:3',
+            'properties.in_trial' => 'required|boolean',
+            'properties.product_name' => 'required|string',
+            'properties.renewal_date' => 'required|date|after_or_equal:properties.start_date',
+            'properties.start_date' => 'required|date',
+            'user.id' => 'required|string',
+            'user.email' => 'required|email',
+            'user.region' => 'required|string|size:2',
+        ];
+    }
 
     /**
      * @return array{
