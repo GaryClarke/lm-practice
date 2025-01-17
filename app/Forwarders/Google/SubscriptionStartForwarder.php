@@ -29,7 +29,7 @@ class SubscriptionStartForwarder implements SubscriptionForwarder
         $audienceGridSubscription = $this->mapper->mapToAudienceGrid($googleSubscription);
 
         // Validate the $audienceGridSubscription
-        $this->validator->validate($audienceGridSubscription);
+        $this->validator->validate($audienceGridSubscription, $audienceGridSubscription::rules());
 
         dd($audienceGridSubscription);
     }

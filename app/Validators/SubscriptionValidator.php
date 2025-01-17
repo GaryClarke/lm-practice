@@ -21,15 +21,15 @@ class SubscriptionValidator
      * @param Arrayable<string, mixed> $subscription
      * @throws WebhookException
      */
-    public function validate(Arrayable $subscription): void
+    public function validate(Arrayable $subscription, array $rules): void
     {
         $validator = $this->validatorFactory->make(
             $subscription->toArray(),
-            Subscription::rules()
+            $rules
         );
 
         if ($validator->fails()) {
-            throw new WebhookException('Validation failed: ' . $validator->errors()->toJson());
+            throw new WebhookException('Validation failed: Check your webhook payload');
         }
     }
 }
