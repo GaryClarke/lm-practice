@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\Mappers\Google;
+namespace App\Mappers\Google;
 
 use App\DTOs\AudienceGrid\Subscription as AudienceGridSubscription;
 use App\DTOs\Google\Subscription as GoogleSubscription;
