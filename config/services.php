@@ -34,5 +34,7 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-
+    'audiencegrid' => [
+        'api_url' => env('AUDIENCEGRID_API_URL', 'https://api.audiencegrid.com/events'),
+    ],
 ];

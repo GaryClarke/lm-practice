@@ -9,6 +9,7 @@ use App\Forwarders\Google\SubscriptionStartForwarder;
 use App\Handlers\AppleWebhookHandler;
 use App\Handlers\GoogleWebhookHandler;
 use App\Handlers\HandlerDelegator;
+use Dotenv\Dotenv;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
@@ -47,6 +48,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $basePath = base_path();
+        if (file_exists("{$basePath}/.env.local")) {
+            Dotenv::createImmutable($basePath, '.env.local')->load();
+        }
     }
 }

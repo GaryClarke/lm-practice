@@ -7,15 +7,20 @@ namespace App\Clients;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
-class AudienceGridClient implements AudienceGridClientInterface
+readonly class AudienceGridClient implements AudienceGridClientInterface
 {
-    private const string API_URL = 'https://api.audiencegrid.com/events';
+    private string $apiUrl;
+
+    public function __construct(
+    ) {
+        $this->apiUrl = config('services.audiencegrid.api_url');
+    }
 
     /**
      * @param array<string, mixed> $data
      */
     public function post(array $data): Response
     {
-        return Http::post(self::API_URL, $data);
+        return Http::post($this->apiUrl, $data);
     }
 }

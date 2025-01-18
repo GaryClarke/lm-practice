@@ -8,6 +8,7 @@ use App\Clients\AudienceGridClient;
 use App\Contracts\SubscriptionForwarder;
 use App\DTOs\Google\Subscription as GoogleSubscription;
 use App\DTOs\Google\SubscriptionEventCategory;
+use App\Exceptions\WebhookException;
 use App\Mappers\Google\SubscriptionMapper;
 use App\Validators\SubscriptionValidator;
 
@@ -24,6 +25,9 @@ class SubscriptionStartForwarder implements SubscriptionForwarder
         return $googleSubscription->category === SubscriptionEventCategory::START->value;
     }
 
+    /**
+     * @throws WebhookException
+     */
     public function forward(GoogleSubscription $googleSubscription): void
     {
         // Map to AudienceGrid
