@@ -64,3 +64,14 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Triggering the Webhook Endpoint
+
+You can test the webhook endpoint using the following `curl` command:
+
+```bash
+curl -i -X POST http://localhost:8000/api/webhook \
+     -H "Content-Type: application/json" \
+     -H "X-Webhook-Source: Google" \
+     --data-binary @tests/mock-payloads/google.json
+
