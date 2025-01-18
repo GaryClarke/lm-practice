@@ -72,19 +72,19 @@ function createSubscription(array $overrides = []): Subscription
     $data = array_merge($defaults, $overrides);
 
     return new Subscription(
-        subscription_id: $data['subscription_id'],
-        notification_type: $data['notification_type'],
-        in_trial: $data['in_trial'],
-        event_time: $data['event_time'],
+        subscriptionId: $data['subscription_id'],
+        notificationType: $data['notification_type'],
+        inTrial: $data['in_trial'],
+        eventTime: $data['event_time'],
         event: $data['event'],
         category: $data['category'],
-        product_id: $data['product_id'],
-        order_id: $data['order_id'],
-        user_id: $data['user_id'],
+        productId: $data['product_id'],
+        orderId: $data['order_id'],
+        userId: $data['user_id'],
         email: $data['email'],
-        auto_renewing: $data['auto_renewing'],
-        purchase_date: $data['purchase_date'],
-        expiry_date: $data['expiry_date'],
+        autoRenewing: $data['auto_renewing'],
+        purchaseDate: $data['purchase_date'],
+        expiryDate: $data['expiry_date'],
         currency: $data['currency'],
         region: $data['region']
     );
