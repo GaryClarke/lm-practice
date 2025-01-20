@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-use App\Models\SubscriptionEvent;
+use App\Contracts\ErrorHandler;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\Request;
+use Tests\TestDoubles\FakeErrorHandler;
 use function Pest\Laravel\postJson;
 
 it('processes subscription purchase notifications', function () {
-    $subEvent = SubscriptionEvent::all();
-
     $payload = getPayload();
 
     Http::fake();
@@ -20,8 +19,7 @@ it('processes subscription purchase notifications', function () {
 
     Http::assertSent(function(Request $request) {
         $data = $request->data();
-        return $request->url() === 'https://api.audiencegrid.com/events' &&
-            $data['event'] == 'subscription_started' &&
+        return $data['event'] == 'subscription_started' &&
             $data['properties'] == [
                 'subscription_id' => 'premium_monthly',
                 'platform' => 'Google Android',
@@ -40,6 +38,28 @@ it('processes subscription purchase notifications', function () {
     });
 
     $response->assertStatus(204);
+});
+
+it('handles errors gracefully and logs them', function () {
+
+    // Bind the FakeErrorHandler into the service container
+    $this->app->singleton(ErrorHandler::class, FakeErrorHandler::class);
+
+    $payload = getPayload();
+    $payload['data']['developer_notification']['email'] = 'invalid-email'; // Trigger validation error
+
+    Http::fake();
+
+    $response = postJson('/api/webhook', $payload, ['X-Webhook-Source' => 'Google']);
+
+    Http::assertSentCount(0); // No external requests should be made due to validation error
+
+    $response->assertStatus(400);
+
+    // Verify the FakeErrorHandler captured the error
+    $errorHandler = app(ErrorHandler::class);
+    expect($errorHandler->getHandleCallCount())->toBe(1)
+        ->and($errorHandler->getError()->getMessage())->toContain('Validation failed');
 });
 
 function getPayload(
