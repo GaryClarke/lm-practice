@@ -8,6 +8,7 @@ use App\Contracts\SubscriptionForwarder;
 use App\Contracts\WebhookHandler;
 use App\DTOs\Google\SubscriptionFactory;
 use App\DTOs\Webhook;
+use App\Exceptions\WebhookException;
 
 class GoogleWebhookHandler implements WebhookHandler
 {
@@ -32,6 +33,7 @@ class GoogleWebhookHandler implements WebhookHandler
 
     /**
      * Processes the webhook.
+     * @throws WebhookException
      */
     public function handle(Webhook $webhook): void
     {

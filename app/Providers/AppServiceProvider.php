@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
+use App\Contracts\ErrorHandler;
 use App\Contracts\SubscriptionForwarder;
 use App\Contracts\WebhookHandler;
 use App\DTOs\Google\SubscriptionFactory;
+use App\Error\AppErrorHandler;
+use App\Error\DebugErrorHandler;
 use App\Forwarders\Google\SubscriptionStartForwarder;
 use App\Handlers\AppleWebhookHandler;
 use App\Handlers\GoogleWebhookHandler;
@@ -40,6 +43,14 @@ class AppServiceProvider extends ServiceProvider
         // Register HandlerDelegator with tagged services
         $this->app->bind(HandlerDelegator::class, function (Application $app) {
             return new HandlerDelegator($app->tagged(WebhookHandler::class));
+        });
+
+        $this->app->singleton(ErrorHandler::class, function () {
+            if (app()->environment('production')) {
+                return new AppErrorHandler();
+            }
+
+            return new DebugErrorHandler();
         });
     }
 
